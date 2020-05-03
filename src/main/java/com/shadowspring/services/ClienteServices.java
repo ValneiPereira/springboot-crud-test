@@ -1,14 +1,17 @@
 package com.shadowspring.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import com.shadowspring.entity.Cliente;
 
 public interface ClienteServices {
-  
-  Cliente save(Cliente cliente);
-  
-  Page<Cliente> findAll(Pageable pageable);
+
+	Cliente save(Cliente cliente);
+
+	List<Cliente> findAll();
+
+	Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction);
 
 }

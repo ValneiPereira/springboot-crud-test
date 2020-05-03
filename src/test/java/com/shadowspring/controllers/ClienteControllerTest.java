@@ -1,6 +1,10 @@
 package com.shadowspring.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,14 +25,12 @@ import com.shadowspring.repository.ClienteRepository;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class ClienteControllerTest {
-	
+
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+
 	private Cliente cliente;
-	
-	
-	
+
 	@Before
 	public void setUp() {
 		clienteRepository.deleteAll();
@@ -37,17 +39,25 @@ public class ClienteControllerTest {
 		cliente.setNome("valnei");
 		cliente.setSexo(Sexo.M);
 		cliente.setIdade(40);
+		cliente.setDataNascimento(LocalDate.of(1980, 04, 03));
 		cliente.setCidade(null);
 
 	}
-	
+
 	@Test
-	public void testPagina() {
+	public void testFindAll() {
 		cliente = clienteRepository.save(cliente);
-		int pageSize = 10;
-		Pageable pageable = PageRequest.of(0, pageSize);
-		Page<Cliente> assembleias = clienteRepository.findAll(pageable);
-		assertEquals(1, assembleias.getContent().size());
+		List<Cliente> list = clienteRepository.findAll();
+		assertTrue(list.contains(cliente));
+
+	}
+
+	@Test
+	public void testPage() {
+		cliente = clienteRepository.save(cliente);
+		Pageable pageable = PageRequest.of(0, 24);
+		Page<Cliente> clientes = clienteRepository.findAll(pageable);
+		assertEquals(1, clientes.getContent().size());
 	}
 
 }
