@@ -3,11 +3,12 @@ package com.shadowspring.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,30 +24,21 @@ public class ClienteController {
 	@Autowired
 	private ClienteServices services;
 
-	/*
-	 * @Autowired private ModelMapper mapper;
-	 */
-
-	/*
-	 * @PostMapping
-	 * 
-	 * @Transactional public ResponseEntity<?> save(@Valid @RequestBody ClienteDto
-	 * clienteDto) { Cliente cliente = new Cliente(); ClienteDto dto =
-	 * mapper.map(cliente, ClienteDto.class); cliente = services.save(cliente);
-	 * 
-	 * URI uri =
-	 * ServletUriComponentsBuilder.fromCurrentRequest().path("/clientes/{id}").
-	 * buildAndExpand(dto.getId()) .toUri(); return
-	 * ResponseEntity.created(uri).build();
-	 * 
-	 * }
-	 */
-
+	@Autowired
+	private ModelMapper mapper;
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<?> findById(@PathVariable Long id) {
+		Cliente cliente = services.findById(id);
+		ClienteDto clienteDto = mapper.map(cliente, ClienteDto.class);
+		return cliente != null ? ResponseEntity.ok(clienteDto) : ResponseEntity.notFound().build();
+	}
+	
 	@GetMapping
-	public ResponseEntity<?> findAll(Pageable pageable) {
-		List<Cliente> clientePage = services.findAll();
-		List<ClienteDto> clienteDtoPage = clientePage.stream().map(i -> new ClienteDto(i)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(clienteDtoPage);
+	public ResponseEntity<?> findAll() {
+		List<Cliente> clientes = services.findAll();
+		List<ClienteDto> clienteDtos = clientes.stream().map(i -> new ClienteDto(i)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(clienteDtos);
 
 	}
 	
@@ -61,6 +53,4 @@ public class ClienteController {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	
-
 }

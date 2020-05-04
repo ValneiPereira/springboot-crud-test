@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
 
@@ -22,7 +23,7 @@ public class ClienteDto implements Serializable {
 
 	private Integer idade;
 
-	private String cidade;
+	private Cidade cidade;
 
 	public ClienteDto() {
 
@@ -34,7 +35,7 @@ public class ClienteDto implements Serializable {
 		sexo = cliente.getSexo();
 		dataNascimento = cliente.getDataNascimento();
 		idade = cliente.getIdade();
-		cidade = cliente.getCidade().getNome();
+		cidade = cliente.getCidade();
 
 	}
 
@@ -78,11 +79,11 @@ public class ClienteDto implements Serializable {
 		this.idade = idade;
 	}
 
-	public String getCidade() {
+	public Cidade getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
+	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
 
