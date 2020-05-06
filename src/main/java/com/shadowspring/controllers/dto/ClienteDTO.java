@@ -8,28 +8,23 @@ import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
 
-public class ClienteDto implements Serializable {
+public class ClienteDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-
 	private String nome;
-
 	private Sexo sexo;
-
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT-3")
 	private LocalDate dataNascimento;
-
 	private Integer idade;
-
 	private Cidade cidade;
 
-	public ClienteDto() {
+	public ClienteDTO() {
 
 	}
 
-	public ClienteDto(Cliente cliente) {
+	public ClienteDTO(Cliente cliente) {
 		id = cliente.getId();
 		nome = cliente.getNome();
 		sexo = cliente.getSexo();

@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.shadowspring.controllers.dto.ClienteDTO;
 import com.shadowspring.entity.Cliente;
+import com.shadowspring.repository.CidadeRepository;
 import com.shadowspring.repository.ClienteRepository;
 import com.shadowspring.services.ClienteServices;
 
@@ -18,33 +19,68 @@ public class ClienteServiceImpl implements ClienteServices {
 
 	@Autowired
 	ClienteRepository repository;
+	
+	CidadeRepository cidadeRepository;
+	
+	
 
 	@Override
-	public Cliente save(Cliente cliente) {
-		return repository.save(cliente);
-	}
-	
-	@Override
 	public Cliente findById(Long id) {
-		Optional<Cliente> clientes = repository.findById(id);
-		return clientes.orElse(null);
+		Optional<Cliente> Clientes = repository.findById(id);
+		return Clientes.orElse(null);
+	}
+
+	@Override
+	public Cliente save(Cliente Cliente) {
+		return repository.save(Cliente);
+	}
+
+	@Override
+	public Cliente update(Cliente cliente) {
+		Cliente carregaCliente =findById(cliente.getId());
+		updateData(carregaCliente,cliente );
+		return repository.save(carregaCliente);
+	}
+
+	@Override
+	public void delete(Long id) {
+		findById(id);
+		repository.deleteById(id);
+
 	}
 	
 	@Override
 	public List<Cliente> findAll() {
 		return repository.findAll();
 	}
-
+	
 	@Override
-	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repository.findAll(pageRequest);
+	public Page<Cliente> findPage(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 	@Override
-	public Cliente update(Cliente cliente) {
-		findById(cliente.getId());
-		return null;
+	public Cliente fromDTO(ClienteDTO dto) {
+		return new Cliente(dto.getId(), dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),dto.getCidade());
 	}
+	
+	private void updateData(Cliente carregaCliente, Cliente cliente) {
+		carregaCliente.setNome(cliente.getNome());
+		
+	}
+	
+	/*
+	 * public Cliente fromDTO(ClienteNewDTO dto) { Cliente cliente = new
+	 * Cliente(null, dto.getNome(), dto.getSexo(), dto.getDataNascimento(),
+	 * dto.getIdade(), dto.getCidade()); Cidade cidade =
+	 * cidadeRepository.findById(dto.getCidadeId()); cliente.getCidade().getId();
+	 * return cliente; }
+	 */
+	
+
+	
+	
+	
+	
 
 }
