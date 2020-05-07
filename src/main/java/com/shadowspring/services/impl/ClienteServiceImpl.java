@@ -9,8 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shadowspring.controllers.dto.ClienteDTO;
+import com.shadowspring.controllers.dto.ClienteNewDTO;
+import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
-import com.shadowspring.repository.CidadeRepository;
 import com.shadowspring.repository.ClienteRepository;
 import com.shadowspring.services.ClienteServices;
 
@@ -20,7 +21,8 @@ public class ClienteServiceImpl implements ClienteServices {
 	@Autowired
 	ClienteRepository repository;
 	
-	CidadeRepository cidadeRepository;
+	@Autowired
+	CidadeServiceImpl cidadeService;
 	
 	
 
@@ -50,24 +52,37 @@ public class ClienteServiceImpl implements ClienteServices {
 	}
 	
 	@Override
-	public List<Cliente> findAll() {
-		return repository.findAll();
-	}
-	
-	@Override
 	public Page<Cliente> findPage(Pageable pageable) {
 		return repository.findAll(pageable);
-	}
-
-	@Override
-	public Cliente fromDTO(ClienteDTO dto) {
-		return new Cliente(dto.getId(), dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),dto.getCidade());
 	}
 	
 	private void updateData(Cliente carregaCliente, Cliente cliente) {
 		carregaCliente.setNome(cliente.getNome());
 		
 	}
+
+	@Override
+	public List<Cliente> findByNomeCliente(String cliente) {
+ 
+		return repository.findByNome(cliente);
+	}
+	
+	@Override
+	public Cliente fromDTO(ClienteDTO dto) {
+		return new Cliente(dto.getId(), dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),dto.getCidade());
+	}
+	
+	@Override
+	public Cliente fromDTO(ClienteNewDTO dto) {
+		Cidade cidade = cidadeService.findById(dto.getCidadeId());
+		return new  Cliente (null, dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),cidade);
+		 
+		
+	}
+	
+	
+	
+	
 	
 	/*
 	 * public Cliente fromDTO(ClienteNewDTO dto) { Cliente cliente = new
@@ -76,6 +91,7 @@ public class ClienteServiceImpl implements ClienteServices {
 	 * cidadeRepository.findById(dto.getCidadeId()); cliente.getCidade().getId();
 	 * return cliente; }
 	 */
+	 
 	
 
 	

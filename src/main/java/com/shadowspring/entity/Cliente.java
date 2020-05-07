@@ -3,6 +3,7 @@ package com.shadowspring.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,7 +34,7 @@ public class Cliente implements Serializable {
 	@Column(columnDefinition = "DATE")
 	private LocalDate dataNascimento;
 	private Integer idade;
-	@OneToOne()
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
 
@@ -49,9 +50,7 @@ public class Cliente implements Serializable {
 		this.idade = idade;
 		this.cidade = cidade;
 	}
-
 	
-
 	public Long getId() {
 		return id;
 	}

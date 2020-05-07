@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.shadowspring.controllers.dto.CidadeDTO;
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.repository.CidadeRepository;
 import com.shadowspring.services.CidadeServices;
@@ -31,30 +32,11 @@ public class CidadeServiceImpl implements CidadeServices {
 	public Cidade save(Cidade cidade) {
 		return repository.save(cidade);
 	}
-
-	@Override
-	public Cidade update(Cidade cidade) {
-		findById(cidade.getId());
-		return repository.save(cidade);
-	}
-
-	@Override
-	public void delete(Long id) {
-		findById(id);
-		repository.deleteById(id);
-
-	}
-	
-	@Override
-	public List<Cidade> findAll() {
-		return repository.findAll();
-	}
 	
 	@Override
 	public Page<Cidade> findPage(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
-
 	
 	@Override
 	public List<Cidade> findByEstado(String estado) {
@@ -65,6 +47,11 @@ public class CidadeServiceImpl implements CidadeServices {
 	public List<Cidade> findByNomeCidade(String nomeCidade) {
 		return cidaderepository.findByNomeCidade(nomeCidade);
 	}
-	
 
+	@Override
+	public Cidade fromDTO(CidadeDTO dto) {
+		
+		return new Cidade(dto.getId(), dto.getNomeCidade(), dto.getEstado());
+	}
+	
 }

@@ -1,7 +1,7 @@
 package com.shadowspring.controllers;
 
+import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,12 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.shadowspring.controllers.dto.ClienteDTO;
+import com.shadowspring.controllers.dto.ClienteNewDTO;
+import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.services.ClienteServices;
 
@@ -32,27 +36,22 @@ public class ClienteController {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
-	@GetMapping(value = "/page")
+	@GetMapping()
 	public ResponseEntity<?> findPage(Pageable pageable) {
 		Page<Cliente> Clientes = services.findPage(pageable);
 		Page<ClienteDTO> ClientesDtoPage = Clientes.map(i -> new ClienteDTO(i));
 		return ResponseEntity.ok().body(ClientesDtoPage);
 	}
-
-	@GetMapping
-	public ResponseEntity<?> findAll() {
-		List<Cliente> Clientes = services.findAll();
-		List<ClienteDTO> ClientesDto = Clientes.stream().map(i -> new ClienteDTO(i)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(ClientesDto);
-	}
 	
-	/*
-	 * @PostMapping public ResponseEntity<Cliente> insert(@RequestBody Cliente
-	 * Cliente) { Cliente = services.save(Cliente); URI uri =
-	 * ServletUriComponentsBuilder.fromCurrentRequest() .path("/{id}")
-	 * .buildAndExpand(Cliente.getId()).toUri(); return
-	 * ResponseEntity.created(uri).build(); }
-	 */
+	@PostMapping
+	public ResponseEntity<Cidade> insert(@RequestBody ClienteNewDTO dto) {
+		Cliente cliente= services.fromDTO(dto);
+		cliente= services.save(cliente);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(cliente.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Cliente> update(@RequestBody ClienteDTO dto, @PathVariable Long id) {
@@ -68,4 +67,12 @@ public class ClienteController {
 		services.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping(value = "/nome-cliente/{cliente}")
+	public ResponseEntity<?> findByCidade(@PathVariable String cliente) {
+		List<Cliente> cidades = services.findByNomeCliente(cliente);
+		return ResponseEntity.ok().body(cidades);
+	}
+	
+	
 }

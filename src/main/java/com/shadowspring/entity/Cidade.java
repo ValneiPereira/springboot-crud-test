@@ -2,16 +2,11 @@ package com.shadowspring.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.shadowspring.enums.UF;
 
 @Entity
 @Table(name = "cidade")
@@ -23,15 +18,13 @@ public class Cidade implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nomeCidade;
-	@Column(length = 2)
-	@Enumerated(EnumType.STRING)
-	private UF estado;
+	private String estado;
 
 	public Cidade() {
 
 	}
 
-	public Cidade(Long id, String nomeCidade, UF estado) {
+	public Cidade(Long id, String nomeCidade, String estado) {
 		this.id = id;
 		this.nomeCidade = nomeCidade;
 		this.estado = estado;
@@ -52,12 +45,14 @@ public class Cidade implements Serializable {
 	public void setNomeCidade(String nomeCidade) {
 		this.nomeCidade = nomeCidade;
 	}
+	
+	
 
-	public UF getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(UF estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 

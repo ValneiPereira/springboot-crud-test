@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.shadowspring.controllers.dto.ClienteDTO;
+import com.shadowspring.controllers.dto.ClienteNewDTO;
 import com.shadowspring.entity.Cliente;
 
 public interface ClienteServices {
@@ -14,9 +15,10 @@ public interface ClienteServices {
 	Cliente findById(Long id);
 	Cliente update(Cliente cliente);
 	void delete(Long id);
-	List<Cliente> findAll();
 	Page<Cliente> findPage(Pageable pageable);
 	Cliente fromDTO(ClienteDTO dto);
+	Cliente fromDTO(ClienteNewDTO dto);
+	List<Cliente> findByNomeCliente(String cliente);
 
 
 }
