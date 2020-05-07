@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +43,7 @@ public class CidadeController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Cidade> insert(@RequestBody CidadeDTO dto) {
+	public ResponseEntity<Cidade> insert(@Valid @RequestBody CidadeDTO dto) {
 		Cidade cidade= services.fromDTO(dto);
 		cidade= services.save(cidade);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -52,7 +54,7 @@ public class CidadeController {
 	
 	@GetMapping(value = "/nome-cidade/{cidade}")
 	public ResponseEntity<?> findByCidade(@PathVariable String cidade) {
-		List<Cidade> cidades = services.findByNomeCidade(cidade);
+		Cidade cidades = services.findByNomeCidade(cidade);
 		return ResponseEntity.ok().body(cidades);
 	}
 	

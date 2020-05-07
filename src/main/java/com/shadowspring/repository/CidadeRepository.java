@@ -9,7 +9,7 @@ import com.shadowspring.entity.Cidade;
 public interface CidadeRepository extends JpaRepository<Cidade, Long>{
 
 	List<Cidade> findByEstado(String estado);
-	List<Cidade> findByNomeCidade(String nomeCidade);
+	Cidade findByNomeCidade(String nomeCidade);
 
 	
 	

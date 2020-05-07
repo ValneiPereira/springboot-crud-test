@@ -3,14 +3,19 @@ package com.shadowspring.controllers.dto;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.shadowspring.entity.Cidade;
 
 public class CidadeDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	private Long id;
-	@Column(nullable = false)
+	@NotBlank(message="Obrigatorio")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nomeCidade;
 	@Column(nullable = false, length = 2)
 	private String estado;

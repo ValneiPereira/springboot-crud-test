@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.shadowspring.controllers.dto.ClienteDTO;
-import com.shadowspring.controllers.dto.ClienteNewDTO;
-import com.shadowspring.entity.Cidade;
+import com.shadowspring.controllers.dto.ClienteNovoDTO;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.services.ClienteServices;
 
@@ -44,7 +43,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Cidade> insert(@RequestBody ClienteNewDTO dto) {
+	public ResponseEntity<Cliente> insert(@RequestBody ClienteNovoDTO dto) {
 		Cliente cliente= services.fromDTO(dto);
 		cliente= services.save(cliente);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

@@ -14,7 +14,7 @@ public interface CidadeServices {
 	Cidade save(Cidade cidade);
 	Page<Cidade> findPage(Pageable pageable);
 	List<Cidade> findByEstado(String estado);
-	List<Cidade> findByNomeCidade(String nome);
+	Cidade findByNomeCidade(String nome);
 	Cidade fromDTO(CidadeDTO dto);
 	
 	

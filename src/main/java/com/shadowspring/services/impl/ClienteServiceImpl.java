@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shadowspring.controllers.dto.ClienteDTO;
-import com.shadowspring.controllers.dto.ClienteNewDTO;
+import com.shadowspring.controllers.dto.ClienteNovoDTO;
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.repository.ClienteRepository;
@@ -73,7 +73,7 @@ public class ClienteServiceImpl implements ClienteServices {
 	}
 	
 	@Override
-	public Cliente fromDTO(ClienteNewDTO dto) {
+	public Cliente fromDTO(ClienteNovoDTO dto) {
 		Cidade cidade = cidadeService.findById(dto.getCidadeId());
 		return new  Cliente (null, dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),cidade);
 		 
