@@ -1,10 +1,10 @@
 package com.shadowspring.repository;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.junit.After;
@@ -13,36 +13,47 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.shadowspring.entity.Cidade;
+import com.shadowspring.entity.Cliente;
+import com.shadowspring.enums.Sexo;
 
 @ActiveProfiles("test")
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class CidadeRepositoryTest {
-	
-	private  final String NOME_CIDADE = "Tapes";
-	private  final String ESTADO = "RS";
+public class ClienteRepositoryTest {
 
+	@Autowired
+	private ClienteRepository clienteRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	
-	@Autowired
-	private ClienteRepository clienteRepository;
-
+	private final String NOME_CIDADE = "Cachoeirinha";
+	private final String NOME_ESTADO = "RS";
+	
+	private Cliente cliente;
 	private Cidade cidade;
 
 	@Before
 	public void setUp() {
-
+		
 		cidade = new Cidade();
 		cidade.setNomeCidade(NOME_CIDADE);
-		cidade.setEstado(ESTADO);
-		cidade =cidadeRepository.save(cidade);
+		cidade.setEstado(NOME_ESTADO);
+		//cidadeRepository.save(cidade);
+		
+		cliente = new Cliente();
+		cliente.setNome("valnei");
+		cliente.setSexo(Sexo.M);
+		cliente.setIdade(40);
+		cliente.setDataNascimento(LocalDate.of(1980, 04, 03));
+		cliente.setCidade(cidade);
+
 	}
 	
 	@After
@@ -52,30 +63,30 @@ public class CidadeRepositoryTest {
 	}
 	
 	@Test
-	public void testSave()  {
-		cidade = cidadeRepository.save(cidade);
-		assertNotNull(cidade.getId());
+	public void testSave() {
+		cliente = clienteRepository.save(cliente);
+		assertNotNull(cliente.getId());
 	}
-	
-	@Test
-	public void testDelete() {
-		cidade = cidadeRepository.save(cidade);
-		cidadeRepository.delete(cidade);
-		assertFalse(cidadeRepository.findById(cidade.getId()).isPresent());
+	@Test(expected = DataIntegrityViolationException.class)
+	public void testSaveClienteNomeNull() {
+		cliente.setNome(null);
+		cliente = clienteRepository.save(cliente);
 	}
 	
 	@Test
 	public void testFindById() {
-		cidade = cidadeRepository.save(cidade);
-		Optional<Cidade> response = cidadeRepository.findById(cidade.getId());
+		cliente.setId(null);
+		cliente = clienteRepository.save(cliente);
+		Optional<Cliente> response = clienteRepository.findById(cliente.getId());
 		assertTrue(response.isPresent());
 	}
 	
 	@Test
 	public void testFindAll() {
-		cidade = cidadeRepository.save(cidade);
+		cliente = clienteRepository.save(cliente);
 		Pageable pageable = PageRequest.of(0, 1);
 		assertEquals(1, cidadeRepository.findAll(pageable).getContent().size());
 	}
 	
+
 }
