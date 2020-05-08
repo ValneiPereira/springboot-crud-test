@@ -29,7 +29,6 @@ public class CidadeServiceImpl implements CidadeServices {
 	@Override
 	public Cidade save(Cidade cidade) {
 		Optional<Cidade> buscaNomeEstado = repository.findByNomeCidadeAndEstado(cidade.getNomeCidade(), cidade.getEstado());
-		
 		if (buscaNomeEstado.isPresent()) {
 			throw new NegocioException("Já existe uma cidade mesmo nome neste estado.");
 		}
@@ -53,7 +52,6 @@ public class CidadeServiceImpl implements CidadeServices {
 
 	@Override
 	public Cidade fromDTO(CidadeDTO dto) {
-		
 		return new Cidade(dto.getId(), dto.getNomeCidade(), dto.getEstado());
 	}
 	

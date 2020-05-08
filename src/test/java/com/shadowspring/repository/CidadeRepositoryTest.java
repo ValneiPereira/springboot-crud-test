@@ -1,7 +1,12 @@
 package com.shadowspring.repository;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Optional;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,32 +27,48 @@ public class CidadeRepositoryTest {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	private Cidade cidade;
+	
+	//private Cliente cliente;
 
 	@Before
 	public void setUp() {
-		cidadeRepository.deleteAll();
 		
+		//cliente = new Cliente();
 		cidade = new Cidade();
 		cidade.setNomeCidade(NOME_CIDADE);
 		cidade.setEstado(ESTADO);
-		
 		cidade =cidadeRepository.save(cidade);
 	}
 	
-	
+	@After
+	public void tearDown() {
+		clienteRepository.deleteAll();
+		cidadeRepository.deleteAll();
+	}
 	
 	@Test
 	public void testSave()  {
-		
 		cidade = cidadeRepository.save(cidade);
 		assertNotNull(cidade.getId());
-		
 	}
 	
+	@Test
+	public void testDelete() {
+		cidade = cidadeRepository.save(cidade);
+		cidadeRepository.delete(cidade);
+		assertFalse(cidadeRepository.findById(cidade.getId()).isPresent());
+	}
 	
-	
-
+	@Test
+	public void testFindById() {
+		cidade = cidadeRepository.save(cidade);
+		Optional<Cidade> response = cidadeRepository.findById(cidade.getId());
+		assertTrue(response.isPresent());
+	}
 	
 }
