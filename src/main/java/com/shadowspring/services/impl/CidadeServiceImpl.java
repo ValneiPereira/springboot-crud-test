@@ -20,27 +20,21 @@ public class CidadeServiceImpl implements CidadeServices {
 	@Autowired
 	CidadeRepository repository;
 
-	
-
 	@Override
 	public Cidade findById(Long id) {
 		Optional<Cidade> cidades = repository.findById(id);
 		return cidades.orElse(null);
 	}
-
+	
 	@Override
 	public Cidade save(Cidade cidade) {
-		Cidade cidadeExistente = repository.findByNomeCidade(cidade.getNomeCidade());
-		if (cidadeExistente != null && !cidadeExistente.equals(cidade)) {
+		Optional<Cidade> buscaNomeEstado = repository.findByNomeCidadeAndEstado(cidade.getNomeCidade(), cidade.getEstado());
+		
+		if (buscaNomeEstado.isPresent()) {
 			throw new NegocioException("Já existe uma cidade mesmo nome neste estado.");
 		}
 		return repository.save(cidade);
 	}
-	
-	
-	
-	
-	
 	
 	@Override
 	public Page<Cidade> findPage(Pageable pageable) {
@@ -53,7 +47,7 @@ public class CidadeServiceImpl implements CidadeServices {
 	}
 	
 	@Override
-	public Cidade findByNomeCidade(String nomeCidade) {
+	public List<Cidade> findByNomeCidade(String nomeCidade) {
 		return repository.findByNomeCidade(nomeCidade);
 	}
 

@@ -54,7 +54,7 @@ public class CidadeController {
 	
 	@GetMapping(value = "/nome-cidade/{cidade}")
 	public ResponseEntity<?> findByCidade(@PathVariable String cidade) {
-		Cidade cidades = services.findByNomeCidade(cidade);
+		List<Cidade> cidades = services.findByNomeCidade(cidade);
 		return ResponseEntity.ok().body(cidades);
 	}
 	

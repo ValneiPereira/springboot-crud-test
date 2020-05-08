@@ -79,24 +79,5 @@ public class ClienteServiceImpl implements ClienteServices {
 		 
 		
 	}
-	
-	
-	
-	
-	
-	/*
-	 * public Cliente fromDTO(ClienteNewDTO dto) { Cliente cliente = new
-	 * Cliente(null, dto.getNome(), dto.getSexo(), dto.getDataNascimento(),
-	 * dto.getIdade(), dto.getCidade()); Cidade cidade =
-	 * cidadeRepository.findById(dto.getCidadeId()); cliente.getCidade().getId();
-	 * return cliente; }
-	 */
-	 
-	
-
-	
-	
-	
-	
 
 }

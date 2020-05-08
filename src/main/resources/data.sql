@@ -1,4 +1,5 @@
 INSERT INTO CIDADE(nome_cidade, estado) VALUES('cachoeirinha', 'RS');
+INSERT INTO CIDADE(nome_cidade, estado) VALUES('cachoeirinha', 'RJ');
 INSERT INTO CIDADE(nome_cidade, estado) VALUES('gravatai', 'RS');
 INSERT INTO CIDADE(nome_cidade, estado) VALUES('porto alegre', 'RS');
 INSERT INTO CIDADE(nome_cidade, estado) VALUES('sao paulo', 'SP');

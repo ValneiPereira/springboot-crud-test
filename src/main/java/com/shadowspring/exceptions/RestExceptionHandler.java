@@ -35,7 +35,7 @@ public class RestExceptionHandler {
 			).collect(Collectors.toList());
 	}
 	
-	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(NegocioException.class)
 	public List<String> handle(NegocioException exception) {
 		String message = exception.getMessage();
