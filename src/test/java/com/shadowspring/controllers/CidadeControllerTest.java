@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,52 +29,57 @@ import com.shadowspring.repository.ClienteRepository;
 import com.shadowspring.services.CidadeServices;
 import com.shadowspring.services.ClienteServices;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
 @AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 public class CidadeControllerTest {
 
-	private static final Long ID = 1L;
-	private static final String NOME_CIDADE = "Tramandaí";
-	private static final String ESTADO = "RS";
-	private static final String URL = "/cidades";
+
+	private  final String NOME_CIDADE = "Tramandaí";
+	private  final String ESTADO = "RS";
+	private  final String URL = "/cidades";
 
 	private Cidade cidade;
+	
 	private CidadeDTO cidadeDTO;
 
 	@MockBean
-	CidadeServices cidadeService;
-
+	private CidadeServices cidadeService;
+	
 	@MockBean
-	ClienteServices clienteService;
+	private ClienteServices clienteService;
 
 	@Autowired
-	CidadeRepository cidadeRepository;
+	private CidadeRepository cidadeRepository;
 
 	@Autowired
-	ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepository;
 
 	@Autowired
 	MockMvc mvc;
 
 	@Before
 	public void setUp() {
-		clienteRepository.deleteAll();
-		cidadeRepository.deleteAll();
+	
 
 		cidade = new Cidade();
-		cidade.setId(ID);
 		cidade.setNomeCidade(NOME_CIDADE);
 		cidade.setEstado(ESTADO);
 		cidadeService.save(cidade);
 
 		cidadeDTO = new CidadeDTO();
-		cidadeDTO.setId(ID);
 		cidadeDTO.setNomeCidade(NOME_CIDADE);
 		cidadeDTO.setEstado(ESTADO);
-
+ 
 	}
+	
+	@After
+	public void tearDown() {
+		clienteRepository.deleteAll();
+		//cidadeRepository.deleteAll();
+	} 
+	
 
 	@Test
 	public void testSalvarCidadeValida() throws Exception {

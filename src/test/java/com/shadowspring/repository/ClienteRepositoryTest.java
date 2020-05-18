@@ -6,8 +6,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Optional;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,11 +25,9 @@ import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
 
-@ActiveProfiles("test")
-
 @SpringBootTest
-
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 public class ClienteRepositoryTest {
 
 	@Autowired
@@ -38,14 +38,18 @@ public class ClienteRepositoryTest {
 
 	private final String NOME_CIDADE = "Cachoeirinha";
 	private final String NOME_ESTADO = "RS";
+	private final String NOME_CLIENTE = "Valnei";
+	private final Sexo SEXO = Sexo.M;
+	private final int IDADE = 40;
+	private final LocalDate DATA_NASCIMENTO = LocalDate.of(1980, Month.APRIL, 03);
+	
 
 	private Cliente cliente;
 	private Cidade cidade;
 
 	@Before
 	public void setUp() {
-		clienteRepository.deleteAll();
-		cidadeRepository.deleteAll();
+		
 
 		cidade = new Cidade();
 		cidade.setNomeCidade(NOME_CIDADE);
@@ -53,12 +57,18 @@ public class ClienteRepositoryTest {
 		cidadeRepository.save(cidade);
 
 		cliente = new Cliente();
-		cliente.setNome("valnei");
-		cliente.setSexo(Sexo.M);
-		cliente.setIdade(40);
-		cliente.setDataNascimento(LocalDate.of(1980, 04, 03));
+		cliente.setNome(NOME_CLIENTE);
+		cliente.setSexo(SEXO);
+		cliente.setIdade(IDADE);
+		cliente.setDataNascimento(DATA_NASCIMENTO);
 		cliente.setCidade(cidade);
 
+	}
+	
+	@After
+	public void tearDown() {
+		clienteRepository.deleteAll();
+		cidadeRepository.deleteAll();
 	}
 
 	@Test
