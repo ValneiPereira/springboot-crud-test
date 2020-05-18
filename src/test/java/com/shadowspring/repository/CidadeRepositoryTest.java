@@ -26,7 +26,7 @@ import com.shadowspring.entity.Cidade;
 @RunWith(SpringRunner.class)
 public class CidadeRepositoryTest {
 	
-	private  final Long ID = 1L;
+	
 	private  final String NOME_CIDADE = "Tramandaí";
 	private  final String ESTADO = "RS";
 	
@@ -34,11 +34,6 @@ public class CidadeRepositoryTest {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
-
-	@Autowired
-	private ClienteRepository clienteRepository;
-	
-
 
 	@Before
 	public void setUp() {
@@ -51,7 +46,6 @@ public class CidadeRepositoryTest {
 	
 	@After
 	public void tearDown() {
-		clienteRepository.deleteAll();
 		cidadeRepository.deleteAll();
 	}
 

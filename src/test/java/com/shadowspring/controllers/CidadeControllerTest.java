@@ -77,7 +77,7 @@ public class CidadeControllerTest {
 	@After
 	public void tearDown() {
 		clienteRepository.deleteAll();
-		//cidadeRepository.deleteAll();
+		cidadeRepository.deleteAll();
 	} 
 	
 
