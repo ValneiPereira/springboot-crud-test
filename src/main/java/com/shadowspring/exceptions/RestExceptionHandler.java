@@ -35,9 +35,16 @@ public class RestExceptionHandler {
 			).collect(Collectors.toList());
 	}
 	
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	@ExceptionHandler(NotFoundException.class)
+	public List<String> handle(NotFoundException exception) {
+		String message = exception.getMessage();
+		return Arrays.asList(message);
+	}
+	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(NegocioException.class)
-	public List<String> handle(NegocioException exception) {
+	@ExceptionHandler(BadRequestException.class)
+	public List<String> notFound(BadRequestException exception) {
 		String message = exception.getMessage();
 		return Arrays.asList(message);
 	}

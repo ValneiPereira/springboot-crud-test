@@ -37,19 +37,23 @@ public class ClienteController {
 	
 	@GetMapping()
 	public ResponseEntity<?> findPage(Pageable pageable) {
-		Page<Cliente> Clientes = services.findPage(pageable);
-		Page<ClienteDTO> ClientesDtoPage = Clientes.map(i -> new ClienteDTO(i));
-		return ResponseEntity.ok().body(ClientesDtoPage);
+		Page<Cliente> clientes = services.findPage(pageable);
+		Page<ClienteDTO> clientesDtoPage = clientes.map(i -> new ClienteDTO(i));
+		return ResponseEntity.ok().body(clientesDtoPage);
 	}
 	
 	@PostMapping
 	public ResponseEntity<Cliente> insert(@RequestBody ClienteNovoDTO dto) {
 		Cliente cliente= services.fromDTO(dto);
 		cliente= services.save(cliente);
+		//Dispolibiliza link
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
 				.buildAndExpand(cliente.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+		//Dispolibiliza corpo
+		//return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+		
 	}
 	
 	@PutMapping(value = "/{id}")

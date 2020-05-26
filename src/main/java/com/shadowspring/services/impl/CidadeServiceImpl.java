@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.shadowspring.controllers.dto.CidadeDTO;
 import com.shadowspring.entity.Cidade;
-import com.shadowspring.exceptions.NegocioException;
+import com.shadowspring.exceptions.BadRequestException;
+import com.shadowspring.exceptions.NotFoundException;
 import com.shadowspring.repository.CidadeRepository;
 import com.shadowspring.services.CidadeServices;
 
@@ -22,15 +23,16 @@ public class CidadeServiceImpl implements CidadeServices {
 
 	@Override
 	public Cidade findById(Long id) {
-		Optional<Cidade> cidades = repository.findById(id);
-		return cidades.orElse(null);
+		Optional<Cidade> cidade = repository.findById(id);
+		return cidade.orElseThrow(( ) -> new NotFoundException("Cidade não tem na base dados"));
+
 	}
 	
 	@Override
 	public Cidade save(Cidade cidade) {
 		Optional<Cidade> buscaNomeEstado = repository.findByNomeCidadeAndEstado(cidade.getNomeCidade(), cidade.getEstado());
 		if (buscaNomeEstado.isPresent()) {
-			throw new NegocioException("Já existe uma cidade mesmo nome neste estado.");
+			throw new BadRequestException("Já existe uma cidade mesmo nome neste estado.");
 		}
 		return repository.save(cidade);
 	}

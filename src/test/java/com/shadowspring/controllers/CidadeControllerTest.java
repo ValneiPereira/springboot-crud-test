@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.shadowspring.controllers.dto.CidadeDTO;
 import com.shadowspring.entity.Cidade;
-import com.shadowspring.exceptions.NegocioException;
+import com.shadowspring.exceptions.BadRequestException;
 import com.shadowspring.repository.CidadeRepository;
 import com.shadowspring.repository.ClienteRepository;
 import com.shadowspring.services.CidadeServices;
@@ -111,9 +111,8 @@ public class CidadeControllerTest {
 		cidadeDTO.setNomeCidade("Tramandaí");
 		cidadeDTO.setEstado(ESTADO);
 		
-		
 		  when(cidadeService.fromDTO(cidadeDTO)).thenReturn(cidade);
-		  when(cidadeService.save(any())).thenThrow(NegocioException.class);
+		  when(cidadeService.save(any())).thenThrow(BadRequestException.class);
 		 
 		
 		mvc.perform(MockMvcRequestBuilders.post(URL)
