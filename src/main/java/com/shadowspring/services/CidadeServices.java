@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.shadowspring.controllers.dto.CidadeDTO;
 import com.shadowspring.entity.Cidade;
+import com.shadowspring.rest.dto.CidadeDTO;
 
 public interface CidadeServices {
 

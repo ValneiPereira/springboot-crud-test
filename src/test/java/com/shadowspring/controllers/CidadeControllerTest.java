@@ -21,11 +21,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.shadowspring.controllers.dto.CidadeDTO;
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.exceptions.BadRequestException;
 import com.shadowspring.repository.CidadeRepository;
 import com.shadowspring.repository.ClienteRepository;
+import com.shadowspring.rest.dto.CidadeDTO;
 import com.shadowspring.services.CidadeServices;
 import com.shadowspring.services.ClienteServices;
 

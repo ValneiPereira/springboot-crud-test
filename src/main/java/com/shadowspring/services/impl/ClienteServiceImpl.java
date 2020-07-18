@@ -8,11 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.shadowspring.controllers.dto.ClienteDTO;
-import com.shadowspring.controllers.dto.ClienteNovoDTO;
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.repository.ClienteRepository;
+import com.shadowspring.rest.dto.ClienteDTO;
+import com.shadowspring.rest.dto.ClienteNovoDTO;
 import com.shadowspring.services.ClienteServices;
 
 @Service

@@ -8,11 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.shadowspring.controllers.dto.CidadeDTO;
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.exceptions.BadRequestException;
 import com.shadowspring.exceptions.NotFoundException;
 import com.shadowspring.repository.CidadeRepository;
+import com.shadowspring.rest.dto.CidadeDTO;
 import com.shadowspring.services.CidadeServices;
 
 @Service
@@ -50,6 +50,7 @@ public class CidadeServiceImpl implements CidadeServices {
 	@Override
 	public List<Cidade> findByNomeCidade(String nomeCidade) {
 		return repository.findByNomeCidade(nomeCidade);
+		
 	}
 
 	@Override
