@@ -66,11 +66,11 @@ public class CidadeController {
 	
 	@ApiOperation(value="Buscar estado")
 	@GetMapping(value = "/estados/{estado}")
-	public ResponseEntity<?> findByEstado(@RequestBody CidadeDTO cidade, @PathVariable String estado)  {
-		cidade.setEstado(cidade.getEstado());
+	public ResponseEntity<?> findByEstado(@PathVariable String estado)  {
 		List<Cidade> cidades = services.findByEstado(estado);
 		List<CidadeDTO> cidadesDto = cidades.stream().map(i -> new CidadeDTO(i)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(cidadesDto);
 	}
+	
 	
 }
