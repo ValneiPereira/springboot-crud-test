@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/ValneiPereira/springboot-crud-test.svg?branch=master)](https://travis-ci.org/ValneiPereira/springboot-crud-test)
+[![codecov](https://codecov.io/gh/ValneiPereira/springboot-crud-test/branch/master/graph/badge.svg?token=HTI019L7A0)](https://codecov.io/gh/ValneiPereira/springboot-crud-test)
 # Roteiro Microservice Spring Boot
 
 ## Objetivo
