@@ -1,45 +1,30 @@
-package com.shadowspring.rest.dto;
+package com.shadowspring.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.shadowspring.entity.Cidade;
-import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
 
-public class ClienteDTO implements Serializable {
+public class ClienteNovoDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private Long id;
+	
+	@NotBlank(message="Obrigatorio")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
 	private Sexo sexo;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT-3")
 	private LocalDate dataNascimento;
 	private Integer idade;
-	private Cidade cidade;
-
-	public ClienteDTO() {
-
-	}
-
-	public ClienteDTO(Cliente cliente) {
-		id = cliente.getId();
-		nome = cliente.getNome();
-		sexo = cliente.getSexo();
-		dataNascimento = cliente.getDataNascimento();
-		idade = cliente.getIdade();
-		cidade = cliente.getCidade();
-
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	private Long cidadeId;
+	
+	public ClienteNovoDTO() {
+		
 	}
 
 	public String getNome() {
@@ -74,12 +59,12 @@ public class ClienteDTO implements Serializable {
 		this.idade = idade;
 	}
 
-	public Cidade getCidade() {
-		return cidade;
+	public Long getCidadeId() {
+		return cidadeId;
 	}
 
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
+	public void setCidadeId(Long cidadeId) {
+		this.cidadeId = cidadeId;
 	}
-
+	
 }

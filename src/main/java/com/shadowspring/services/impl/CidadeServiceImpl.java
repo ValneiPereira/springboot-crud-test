@@ -12,7 +12,7 @@ import com.shadowspring.entity.Cidade;
 import com.shadowspring.exceptions.BadRequestException;
 import com.shadowspring.exceptions.NotFoundException;
 import com.shadowspring.repository.CidadeRepository;
-import com.shadowspring.rest.dto.CidadeDTO;
+import com.shadowspring.dto.CidadeDTO;
 import com.shadowspring.services.CidadeServices;
 
 @Service

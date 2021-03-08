@@ -1,4 +1,4 @@
-package com.shadowspring.rest.dto;
+package com.shadowspring.dto;
 
 import java.io.Serializable;
 

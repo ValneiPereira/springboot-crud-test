@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.shadowspring.entity.Cliente;
-import com.shadowspring.rest.dto.ClienteDTO;
-import com.shadowspring.rest.dto.ClienteNovoDTO;
+import com.shadowspring.dto.ClienteDTO;
+import com.shadowspring.dto.ClienteNovoDTO;
 
 public interface ClienteServices {
 	

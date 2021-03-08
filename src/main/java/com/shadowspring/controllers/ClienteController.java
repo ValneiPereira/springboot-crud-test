@@ -1,4 +1,4 @@
-package com.shadowspring.rest.controllers;
+package com.shadowspring.controllers;
 
 import java.net.URI;
 import java.util.List;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.shadowspring.entity.Cliente;
-import com.shadowspring.rest.dto.ClienteDTO;
-import com.shadowspring.rest.dto.ClienteNovoDTO;
+import com.shadowspring.dto.ClienteDTO;
+import com.shadowspring.dto.ClienteNovoDTO;
 import com.shadowspring.services.ClienteServices;
 
 @RestController

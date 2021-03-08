@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.repository.ClienteRepository;
-import com.shadowspring.rest.dto.ClienteDTO;
-import com.shadowspring.rest.dto.ClienteNovoDTO;
+import com.shadowspring.dto.ClienteDTO;
+import com.shadowspring.dto.ClienteNovoDTO;
 import com.shadowspring.services.ClienteServices;
 
 @Service

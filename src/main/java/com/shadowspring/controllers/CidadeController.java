@@ -1,4 +1,4 @@
-package com.shadowspring.rest.controllers;
+package com.shadowspring.controllers;
 
 import java.net.URI;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.shadowspring.entity.Cidade;
-import com.shadowspring.rest.dto.CidadeDTO;
+import com.shadowspring.dto.CidadeDTO;
 import com.shadowspring.services.CidadeServices;
 
 import io.swagger.annotations.ApiOperation;
