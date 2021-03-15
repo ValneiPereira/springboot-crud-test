@@ -68,6 +68,7 @@ class CidadeServiceImplTest {
         Page<Cidade> page = service.findPage(pageable);
 
         assertEquals(0, page.getContent().size());
+        verify(repository,times(1)).findAll(pageable);
     }
 
     @Test
