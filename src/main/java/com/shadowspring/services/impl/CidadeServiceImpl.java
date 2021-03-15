@@ -3,6 +3,8 @@ package com.shadowspring.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +18,13 @@ import com.shadowspring.dto.CidadeDTO;
 import com.shadowspring.services.CidadeServices;
 
 @Service
+@AllArgsConstructor
 public class CidadeServiceImpl implements CidadeServices {
 
-	@Autowired
-	CidadeRepository repository;
+
+	private final CidadeRepository repository;
+
+
 
 	@Override
 	public Cidade findById(Long id) {
