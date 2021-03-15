@@ -2,61 +2,64 @@ package com.shadowspring.services.impl;
 
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.repository.CidadeRepository;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
-import java.util.Set;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class CidadeServiceImplTest {
 
     private Cidade cidade;
-    private CidadeServiceImpl cidadeService;
+    private CidadeServiceImpl service;
 
     @Mock
-    CidadeRepository cidadeRepository;
+    CidadeRepository repository;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        cidadeService = new CidadeServiceImpl(cidadeRepository);
-
-        cidade = new Cidade();
-
+        service = new CidadeServiceImpl(repository);
+        //repository.deleteAll();
         cidade = Cidade.builder()
                 .id(1L)
                 .nomeCidade("Tramandai")
                 .estado("RS")
                 .build();
-
-
     }
 
     @Test
     void findById() {
+        Long cidadeId = cidade.getId();
+        when(repository.findById(cidade.getId())).thenReturn(Optional.of(cidade));
+        cidade = service.findById(cidadeId);
 
-        cidade.setId(cidade.getId());
+        assertNotNull(cidade);
+        assertEquals(cidadeId, cidade.getId());
+        verify(repository,times(1)).findById(cidadeId);
 
 
     }
 
     @Test
     void save() {
+        Cidade cidade = new Cidade();
+        cidade.setNomeCidade("Gravatai");
+
+        when(repository.save(Mockito.any(Cidade.class))).thenReturn(cidade);
+        cidade = service.save(cidade);
+        assertNotNull(cidade);
+
+
+
     }
 
     @Test
