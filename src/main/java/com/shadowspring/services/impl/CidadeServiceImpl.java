@@ -21,16 +21,12 @@ import com.shadowspring.services.CidadeServices;
 @AllArgsConstructor
 public class CidadeServiceImpl implements CidadeServices {
 
-
 	private final CidadeRepository repository;
-
-
 
 	@Override
 	public Cidade findById(Long id) {
 		Optional<Cidade> cidade = repository.findById(id);
 		return cidade.orElseThrow(( ) -> new NotFoundException("Cidade não tem na base dados"));
-
 	}
 	
 	@Override
