@@ -3,6 +3,8 @@ package com.shadowspring.util;
 
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
+import lombok.*;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -10,22 +12,20 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 public class ExcelExporter {
     private final XSSFWorkbook workbook;
-    private XSSFSheet sheet;
     private final List<Cliente> listUsers;
+    private XSSFSheet sheet;
 
     public ExcelExporter(List<Cliente> listClientes) {
         this.listUsers = listClientes;
-        workbook = new XSSFWorkbook();
+        this.workbook = new XSSFWorkbook();
     }
-
 
     private void writeHeaderLine() {
         sheet = workbook.createSheet("Clientes");
@@ -86,15 +86,17 @@ public class ExcelExporter {
         }
     }
 
-    public void export(HttpServletResponse response) throws IOException {
+    public String export() throws IOException {
+
         writeHeaderLine();
         writeDataLines();
 
-        ServletOutputStream outputStream = response.getOutputStream();
-        workbook.write(outputStream);
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        workbook.write(b);
+        byte[] bytes = b.toByteArray();
+        var base64 = Base64.encodeBase64String(bytes);
         workbook.close();
 
-        outputStream.close();
-
+        return base64;
     }
 }
