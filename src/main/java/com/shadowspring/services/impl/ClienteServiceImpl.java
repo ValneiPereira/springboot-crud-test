@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shadowspring.entity.Cidade;
@@ -15,7 +16,10 @@ import com.shadowspring.dto.ClienteDTO;
 import com.shadowspring.dto.ClienteNovoDTO;
 import com.shadowspring.services.ClienteServices;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class ClienteServiceImpl implements ClienteServices {
 
 	@Autowired
@@ -23,8 +27,6 @@ public class ClienteServiceImpl implements ClienteServices {
 	
 	@Autowired
 	CidadeServiceImpl cidadeService;
-	
-	
 
 	@Override
 	public Cliente findById(Long id) {
@@ -66,7 +68,12 @@ public class ClienteServiceImpl implements ClienteServices {
  
 		return repository.findByNome(cliente);
 	}
-	
+
+	@Override
+	public List<Cliente> listAll() {
+		return repository.findAll(Sort.by("id").ascending());
+	}
+
 	@Override
 	public Cliente fromDTO(ClienteDTO dto) {
 		return new Cliente(dto.getId(), dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),dto.getCidade());
@@ -76,7 +83,6 @@ public class ClienteServiceImpl implements ClienteServices {
 	public Cliente fromDTO(ClienteNovoDTO dto) {
 		Cidade cidade = cidadeService.findById(dto.getCidadeId());
 		return new  Cliente (null, dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),cidade);
-		 
 		
 	}
 

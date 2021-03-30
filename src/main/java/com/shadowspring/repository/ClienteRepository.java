@@ -9,6 +9,4 @@ import com.shadowspring.entity.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 	List<Cliente> findByNome(String cliente);
-	
-
 }

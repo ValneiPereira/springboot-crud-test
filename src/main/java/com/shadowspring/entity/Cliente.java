@@ -36,9 +36,6 @@ public class Cliente implements Serializable {
 
 	@ManyToOne()
 	private Cidade cidade;
-	
-	
-	
 
 	public Cliente() {
 

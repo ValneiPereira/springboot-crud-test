@@ -42,7 +42,7 @@ public class CidadeController {
 	@GetMapping()
 	public ResponseEntity<?> findPage(Pageable pageable) {
 		Page<Cidade> cidades = services.findPage(pageable);
-		Page<CidadeDTO> cidadesDtoPage = cidades.map(i -> new CidadeDTO(i));
+		Page<CidadeDTO> cidadesDtoPage = cidades.map(CidadeDTO::new);
 		return ResponseEntity.ok().body(cidadesDtoPage);
 	}
 	
@@ -68,9 +68,8 @@ public class CidadeController {
 	@GetMapping(value = "/estados/{estado}")
 	public ResponseEntity<?> findByEstado(@PathVariable String estado)  {
 		List<Cidade> cidades = services.findByEstado(estado);
-		List<CidadeDTO> cidadesDto = cidades.stream().map(i -> new CidadeDTO(i)).collect(Collectors.toList());
+		List<CidadeDTO> cidadesDto = cidades.stream().map(CidadeDTO::new).collect(Collectors.toList());
 		return ResponseEntity.ok().body(cidadesDto);
 	}
-	
-	
+
 }

@@ -1,8 +1,13 @@
 package com.shadowspring.controllers;
 
+import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.shadowspring.util.ExcelExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +27,8 @@ import com.shadowspring.dto.ClienteDTO;
 import com.shadowspring.dto.ClienteNovoDTO;
 import com.shadowspring.services.ClienteServices;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -38,7 +45,7 @@ public class ClienteController {
 	@GetMapping()
 	public ResponseEntity<?> findPage(Pageable pageable) {
 		Page<Cliente> clientes = services.findPage(pageable);
-		Page<ClienteDTO> clientesDtoPage = clientes.map(i -> new ClienteDTO(i));
+		Page<ClienteDTO> clientesDtoPage = clientes.map(ClienteDTO::new);
 		return ResponseEntity.ok().body(clientesDtoPage);
 	}
 	
@@ -72,10 +79,27 @@ public class ClienteController {
 	}
 	
 	@GetMapping(value = "/nome-cliente/{cliente}")
-	public ResponseEntity<?> findByCidade(@PathVariable String cliente) {
-		List<Cliente> cidades = services.findByNomeCliente(cliente);
-		return ResponseEntity.ok().body(cidades);
+	public ResponseEntity<?> findByCliente(@PathVariable String cliente) {
+		List<Cliente> clientes = services.findByNomeCliente(cliente);
+		return ResponseEntity.ok().body(clientes);
 	}
-	
-	
+
+	@GetMapping("/export/excel")
+	public void exportToExcel(HttpServletResponse response) throws IOException {
+		response.setContentType("application/octet-stream");
+		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=Clientes_" + currentDateTime + ".xlsx";
+		response.setHeader(headerKey, headerValue);
+
+		List<Cliente> listClientes = services.listAll();
+
+		ExcelExporter excelExporter = new ExcelExporter(listClientes);
+
+		excelExporter.export(response);
+	}
+
+
 }

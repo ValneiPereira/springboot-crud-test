@@ -19,6 +19,5 @@ public interface ClienteServices {
 	Cliente fromDTO(ClienteDTO dto);
 	Cliente fromDTO(ClienteNovoDTO dto);
 	List<Cliente> findByNomeCliente(String cliente);
-
-
+	List<Cliente> listAll();
 }
