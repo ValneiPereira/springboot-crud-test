@@ -77,12 +77,6 @@ public class ClienteRepositoryTest {
 		assertNotNull(cliente.getId());
 	}
 
-	@Test(expected = DataIntegrityViolationException.class)
-	public void testSaveClienteNomeNull() {
-		cliente.setNome(null);
-		cliente = clienteRepository.save(cliente);
-	}
-
 	@Test
 	public void testFindClienteById() {
 		cliente.setId(null);
