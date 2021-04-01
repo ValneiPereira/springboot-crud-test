@@ -6,5 +6,5 @@ import lombok.Data;
 @Builder
 @Data
 public class ExcelDTO {
-    String base64;
+    private String base64;
 }

@@ -7,6 +7,7 @@ import lombok.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,12 +16,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class ExcelExporter {
     private final XSSFWorkbook workbook;
     private final List<Cliente> listUsers;
     private XSSFSheet sheet;
+
 
     public ExcelExporter(List<Cliente> listClientes) {
         this.listUsers = listClientes;
@@ -66,8 +70,10 @@ public class ExcelExporter {
     }
 
     private void writeDataLines() {
-        int rowCount = 1;
 
+
+        int rowCount = 1;
+        CreationHelper createHelper = workbook.getCreationHelper();
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setFontHeight(14);
@@ -80,10 +86,12 @@ public class ExcelExporter {
             createCell(row, columnCount++, cliente.getId(), style);
             createCell(row, columnCount++, cliente.getNome(),style);
             createCell(row, columnCount++, cliente.getSexo(), style);
-            createCell(row, columnCount++, cliente.getDataNascimento(), style);
+            createCell(row, columnCount++, cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), style);
             createCell(row, columnCount, cliente.getIdade(), style);
 
         }
+
+
     }
 
     public String export() throws IOException {
