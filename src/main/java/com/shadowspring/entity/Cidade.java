@@ -24,6 +24,4 @@ public class Cidade implements Serializable {
 	private String nomeCidade;
 	private String estado;
 
-
-
 }

@@ -4,10 +4,11 @@ import com.shadowspring.enums.Sexo;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Month;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ClienteTest {
 
@@ -64,8 +65,8 @@ public class ClienteTest {
     public void testEquals_Symmetric() {
         Cidade  cidade= new Cidade(1L,"Tramandai","RS");
         LocalDate dataNascimento = LocalDate.of(1980, 4, 3);
-        Cliente x = new Cliente(3L,"Valnei",Sexo.M,dataNascimento,41,cidade);
-        Cliente y = new Cliente(3L,"Valnei",Sexo.M,dataNascimento,41,cidade);
+        Cliente x = new Cliente(3L,"Valnei",Sexo.M,dataNascimento,new BigDecimal("08.800"),41,cidade);
+        Cliente y = new Cliente(3L,"Valnei",Sexo.M,dataNascimento,new BigDecimal("08.800"),41,cidade);
         assertTrue(x.equals(y) && y.equals(x));
         assertEquals(x.hashCode(), y.hashCode());
     }

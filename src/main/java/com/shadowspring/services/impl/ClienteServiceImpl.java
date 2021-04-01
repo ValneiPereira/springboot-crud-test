@@ -76,13 +76,13 @@ public class ClienteServiceImpl implements ClienteServices {
 
 	@Override
 	public Cliente fromDTO(ClienteDTO dto) {
-		return new Cliente(dto.getId(), dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),dto.getCidade());
+		return new Cliente(dto.getId(), dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getVrRentabilidade(),dto.getIdade(),dto.getCidade());
 	}
 	
 	@Override
 	public Cliente fromDTO(ClienteNovoDTO dto) {
 		Cidade cidade = cidadeService.findById(dto.getCidadeId());
-		return new  Cliente (null, dto.getNome(), dto.getSexo(), dto.getDataNascimento(), dto.getIdade(),cidade);
+		return new  Cliente (null, dto.getNome(), dto.getSexo(), dto.getDataNascimento(),dto.getVrRentabilidade(), dto.getIdade(),cidade);
 		
 	}
 

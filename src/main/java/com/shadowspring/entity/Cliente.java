@@ -1,6 +1,7 @@
 package com.shadowspring.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -36,12 +37,10 @@ public class Cliente implements Serializable {
 	private Sexo sexo;
 	@Column(columnDefinition = "DATE")
 	private LocalDate dataNascimento;
+	private BigDecimal vrRentabilidade;
 	private Integer idade;
-	
 
 	@ManyToOne()
 	private Cidade cidade;
-
-
 
 }
