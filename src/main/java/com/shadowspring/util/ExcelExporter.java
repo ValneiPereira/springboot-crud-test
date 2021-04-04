@@ -25,7 +25,6 @@ public class ExcelExporter {
     private final List<Cliente> listUsers;
     private XSSFSheet sheet;
 
-
     public ExcelExporter(List<Cliente> listClientes) {
         this.listUsers = listClientes;
         this.workbook = new XSSFWorkbook();
@@ -33,9 +32,7 @@ public class ExcelExporter {
 
     private void writeHeaderLine() {
         sheet = workbook.createSheet("Clientes");
-
         Row row = sheet.createRow(0);
-
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setBold(true);
@@ -54,7 +51,7 @@ public class ExcelExporter {
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
         sheet.autoSizeColumn(columnCount);
         Cell cell = row.createCell(columnCount);
-        BigDecimal ret = null;
+
         if (value instanceof Integer) {
             cell.setCellValue((Integer) value);
         } else if (value instanceof Boolean) {
@@ -62,11 +59,11 @@ public class ExcelExporter {
         } else if (value instanceof Long) {
             cell.setCellValue((Long) value);
         } else if(value instanceof BigDecimal ) {
-            cell.setCellValue (String.valueOf((BigDecimal) value));
+            cell.setCellValue (String.valueOf(value));
         } else if (value instanceof Sexo) {
-            cell.setCellValue(String.valueOf((Sexo) value));
+            cell.setCellValue(String.valueOf(value));
         } else if (value instanceof LocalDate) {
-            cell.setCellValue(String.valueOf((LocalDate) value));
+            cell.setCellValue(String.valueOf(value));
         }else {
             cell.setCellValue((String) value);
         }
@@ -77,7 +74,6 @@ public class ExcelExporter {
 
 
         int rowCount = 1;
-        CreationHelper createHelper = workbook.getCreationHelper();
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setFontHeight(14);
