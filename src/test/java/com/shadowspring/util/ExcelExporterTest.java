@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class ExcelExporterTest {
                 .dataNascimento(LocalDate.of(1980, Month.APRIL, 03))
                 .idade(40)
                 .cidade(cidade)
+                .vrRentabilidade(new BigDecimal(10))
                 .build();
 
         listClientes = new ArrayList<>();
