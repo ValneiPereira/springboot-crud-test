@@ -1,21 +1,22 @@
 package com.shadowspring.controllers;
 
+import static com.shadowspring.builders.CidadeBuilder.umaCidade;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -31,7 +32,6 @@ import com.shadowspring.services.ClienteServices;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 public class CidadeControllerTest {
 
@@ -59,14 +59,9 @@ public class CidadeControllerTest {
 	@Autowired
 	MockMvc mvc;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
-	
-
-		cidade = new Cidade();
-		cidade.setNomeCidade(NOME_CIDADE);
-		cidade.setEstado(ESTADO);
-		cidadeService.save(cidade);
+		cidade = umaCidade().agora();
 
 		cidadeDTO = new CidadeDTO();
 		cidadeDTO.setNomeCidade(NOME_CIDADE);
@@ -74,7 +69,7 @@ public class CidadeControllerTest {
  
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() {
 		clienteRepository.deleteAll();
 		cidadeRepository.deleteAll();
@@ -83,7 +78,7 @@ public class CidadeControllerTest {
 
 	@Test
 	public void testSalvarCidadeValida() throws Exception {
-		
+
 		when(cidadeService.fromDTO(cidadeDTO)).thenReturn(cidade);
 		when(cidadeService.save(any())).thenReturn(cidade);
 		mvc.perform(MockMvcRequestBuilders.post(URL)
@@ -120,20 +115,12 @@ public class CidadeControllerTest {
 				.content(asJsonString(cidadeDTO)))
 				.andExpect(status().isBadRequest());
 	}
-	
-	
-	
-	
-	
-	
-	
 
 	public static String asJsonString(final Object obj) {
 		try {
 			final ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new JavaTimeModule());
-			final String jsonContent = mapper.writeValueAsString(obj);
-			return jsonContent;
+			return mapper.writeValueAsString(obj);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

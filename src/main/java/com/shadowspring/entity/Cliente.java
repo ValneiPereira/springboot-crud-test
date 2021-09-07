@@ -18,10 +18,9 @@ import com.shadowspring.enums.Sexo;
 import lombok.*;
 
 @Entity
-@Builder
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data @Builder
 @Table(name = "cliente")
 public class Cliente implements Serializable {
 

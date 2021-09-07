@@ -1,20 +1,22 @@
 package com.shadowspring.entity;
 
 import com.shadowspring.enums.Sexo;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class ClienteTest {
 
     private Cliente cliente;
 
-    @Before
+    @BeforeEach
     public void setUp(){
         cliente = new Cliente();
     }
@@ -67,7 +69,7 @@ public class ClienteTest {
         LocalDate dataNascimento = LocalDate.of(1980, 4, 3);
         Cliente x = new Cliente(3L,"Valnei",Sexo.M,dataNascimento,new BigDecimal("08.800"),41,cidade);
         Cliente y = new Cliente(3L,"Valnei",Sexo.M,dataNascimento,new BigDecimal("08.800"),41,cidade);
-        assertTrue(x.equals(y) && y.equals(x));
+        Assertions.assertTrue(x.equals(y) && y.equals(x));
         assertEquals(x.hashCode(), y.hashCode());
     }
 }

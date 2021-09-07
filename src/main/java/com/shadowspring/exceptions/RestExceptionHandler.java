@@ -1,6 +1,6 @@
 package com.shadowspring.exceptions;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -39,14 +39,14 @@ public class RestExceptionHandler {
 	@ExceptionHandler(NotFoundException.class)
 	public List<String> handle(NotFoundException exception) {
 		String message = exception.getMessage();
-		return Arrays.asList(message);
+		return Collections.singletonList(message);
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(BadRequestException.class)
 	public List<String> notFound(BadRequestException exception) {
 		String message = exception.getMessage();
-		return Arrays.asList(message);
+		return Collections.singletonList(message);
 	}
 	
 	

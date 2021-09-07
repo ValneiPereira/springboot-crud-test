@@ -31,7 +31,7 @@ public class CidadeController {
 	@Autowired
 	private CidadeServices services;
 	
-	@ApiOperation(value="Buscar por codigo")
+	@ApiOperation(value="Buscar por código")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Cidade> findById(@PathVariable Long id) {
 		Cidade cidade = services.findById(id);

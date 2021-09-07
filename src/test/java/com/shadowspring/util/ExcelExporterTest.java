@@ -3,12 +3,11 @@ package com.shadowspring.util;
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -17,32 +16,28 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
+import static com.shadowspring.builders.CidadeBuilder.umaCidade;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
+
+@ExtendWith(SpringExtension.class)
 public class ExcelExporterTest {
 
-    private Cliente cliente;
-    private Cidade cidade;
     private List<Cliente> listClientes;
 
     @InjectMocks
     private ExcelExporter excelExporter;
 
-    @Before
+    @BeforeEach
     public void setUp(){
-        cidade = Cidade.builder()
-                .id(1L)
-                .nomeCidade("Tramandaí")
-                .estado("RS")
-                .build();
 
-        cliente = Cliente.builder()
+        Cidade cidade = umaCidade().agora();
+
+        Cliente cliente = Cliente.builder()
                 .id(1L)
                 .nome("Valnei")
                 .sexo(Sexo.M)
-                .dataNascimento(LocalDate.of(1980, Month.APRIL, 03))
+                .dataNascimento(LocalDate.of(1980, Month.APRIL, 3))
                 .idade(40)
                 .cidade(cidade)
                 .vrRentabilidade(new BigDecimal(10))

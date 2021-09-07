@@ -42,7 +42,7 @@ public class ExcelExporter {
         font.setFontHeight(10);
         style.setFont(font);
 
-        createCell(row, 0, "Codigo Cliente", style);
+        createCell(row, 0, "Código Cliente", style);
         createCell(row, 1, "Nome", style);
         createCell(row, 2, "Sexo", style);
         createCell(row, 3, "Data Nascimento", style);

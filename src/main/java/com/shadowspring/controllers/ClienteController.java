@@ -50,12 +50,12 @@ public class ClienteController {
     public ResponseEntity<Cliente> insert(@RequestBody ClienteNovoDTO dto) {
         Cliente cliente = services.fromDTO(dto);
         cliente = services.save(cliente);
-        //Dispolibiliza link
+        //Disponibiliza link
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).build();
-        //Dispolibiliza corpo
+        //Disponibiliza corpo
         //return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
 
     }

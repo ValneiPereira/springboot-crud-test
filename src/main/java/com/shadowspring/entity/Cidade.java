@@ -6,13 +6,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Builder
+@Table(name = "cidade")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "cidade")
-@EqualsAndHashCode
+@Data @Builder
 public class Cidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;

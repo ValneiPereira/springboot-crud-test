@@ -1,32 +1,25 @@
 
 package com.shadowspring.repository;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.shadowspring.entity.Cidade;
+import com.shadowspring.entity.Cliente;
+import com.shadowspring.enums.Sexo;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Optional;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import com.shadowspring.entity.Cidade;
-import com.shadowspring.entity.Cliente;
-import com.shadowspring.enums.Sexo;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 public class ClienteRepositoryTest {
 
@@ -41,31 +34,30 @@ public class ClienteRepositoryTest {
 	private final String NOME_CLIENTE = "Valnei";
 	private final Sexo SEXO = Sexo.M;
 	private final int IDADE = 40;
-	private final LocalDate DATA_NASCIMENTO = LocalDate.of(1980, Month.APRIL, 03);
+	private final LocalDate DATA_NASCIMENTO = LocalDate.of(1980, Month.APRIL, 3);
 	
 
 	private Cliente cliente;
-	private Cidade cidade;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
-		
 
-		cidade = new Cidade();
-		cidade.setNomeCidade(NOME_CIDADE);
-		cidade.setEstado(NOME_ESTADO);
+		Cidade cidade = Cidade.builder()
+				.nomeCidade(NOME_CIDADE)
+				.estado(NOME_ESTADO)
+				.build();
 		cidadeRepository.save(cidade);
 
-		cliente = new Cliente();
-		cliente.setNome(NOME_CLIENTE);
-		cliente.setSexo(SEXO);
-		cliente.setIdade(IDADE);
-		cliente.setDataNascimento(DATA_NASCIMENTO);
-		cliente.setCidade(cidade);
-
+		cliente = Cliente.builder()
+				.nome(NOME_CLIENTE)
+				.sexo(SEXO)
+				.idade(IDADE)
+				.dataNascimento(DATA_NASCIMENTO)
+				.cidade(cidade)
+				.build();
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() {
 		clienteRepository.deleteAll();
 		cidadeRepository.deleteAll();

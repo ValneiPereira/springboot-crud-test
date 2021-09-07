@@ -8,9 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.shadowspring.entity.Cidade;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Getter
 @Setter

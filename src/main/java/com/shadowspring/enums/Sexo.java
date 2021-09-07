@@ -6,7 +6,7 @@ public enum Sexo {
   M("M"), 
   F("F");
 
-  private String descricao;
+  private final String descricao;
 
   Sexo(String descricao) {
     this.descricao = descricao;
