@@ -5,9 +5,9 @@ import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -20,7 +20,8 @@ import static com.shadowspring.builders.CidadeBuilder.umaCidade;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@ActiveProfiles("test")
 public class ExcelExporterTest {
 
     private List<Cliente> listClientes;
@@ -29,7 +30,7 @@ public class ExcelExporterTest {
     private ExcelExporter excelExporter;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
 
         Cidade cidade = umaCidade().agora();
 

@@ -3,7 +3,6 @@ package com.shadowspring.util;
 import com.shadowspring.entity.Cliente;
 import com.shadowspring.enums.Sexo;
 import com.shadowspring.estatics.Formatacao;
-import lombok.var;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
