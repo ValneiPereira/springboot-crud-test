@@ -17,12 +17,6 @@
 
     <properties>
         <java.version>11</java.version>
-        <!-- O endereço que leva à sua instalação do Sonar -->
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <!-- O login do seu usuário -->
-        <sonar.login>admin</sonar.login>
-        <!-- a senha de acesso deste usuário -->
-        <sonar.password>admin</sonar.password>
     </properties>
 
     <dependencies>
@@ -128,7 +122,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 
