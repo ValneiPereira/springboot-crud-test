@@ -7,7 +7,6 @@ import com.shadowspring.entity.Cidade;
 import com.shadowspring.exceptions.BadRequestException;
 import com.shadowspring.services.CidadeServices;
 import com.shadowspring.services.ClienteServices;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +33,11 @@ public class CidadeControllerTest {
 	private  final String URL = "/cidades";
 
 	private Cidade cidade;
+
 	
 	private CidadeDTO cidadeDTO;
+
+	private CidadeController controller;
 
 	@MockBean
 	private CidadeServices cidadeService;
@@ -56,13 +58,6 @@ public class CidadeControllerTest {
 		cidadeDTO.setEstado(ESTADO);
  
 	}
-	
-	@AfterEach
-	public void tearDown() {
-		//clienteRepository.deleteAll();
-		//cidadeRepository.deleteAll();
-	} 
-	
 
 	@Test
 	public void testSalvarCidadeValida() throws Exception {
