@@ -33,7 +33,6 @@ public class CidadeControllerTest {
 	private  final String URL = "/cidades";
 
 	private Cidade cidade;
-
 	
 	private CidadeDTO cidadeDTO;
 
@@ -44,7 +43,6 @@ public class CidadeControllerTest {
 	
 	@MockBean
 	private ClienteServices clienteService;
-
 
 	@Autowired
 	MockMvc mvc;
@@ -91,7 +89,6 @@ public class CidadeControllerTest {
 		
 		  when(cidadeService.fromDTO(cidadeDTO)).thenReturn(cidade);
 		  when(cidadeService.save(any())).thenThrow(BadRequestException.class);
-		 
 		
 		mvc.perform(MockMvcRequestBuilders.post(URL)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -108,5 +105,4 @@ public class CidadeControllerTest {
 			throw new RuntimeException(e);
 		}
 	}
-
 }

@@ -12,7 +12,6 @@ public class CidadeTest {
 
    private Cidade cidade;
 
-
     @BeforeEach
     public void setUp(){
         cidade = new Cidade();
