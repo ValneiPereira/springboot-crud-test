@@ -1,5 +1,9 @@
-[![Build Status](https://travis-ci.org/ValneiPereira/springboot-crud-test.svg?branch=master)](https://travis-ci.org/ValneiPereira/springboot-crud-test)
-[![codecov](https://codecov.io/gh/ValneiPereira/springboot-crud-test/branch/master/graph/badge.svg?token=HTI019L7A0)](https://codecov.io/gh/ValneiPereira/springboot-crud-test)
+<!-- [![Build Status](https://travis-ci.org/ValneiPereira/springboot-crud-test.svg?branch=master)](https://travis-ci.org/ValneiPereira/springboot-crud-test)
+[![codecov](https://codecov.io/gh/ValneiPereira/springboot-crud-test/branch/master/graph/badge.svg?token=HTI019L7A0)](https://codecov.io/gh/ValneiPereira/springboot-crud-test) -->
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ValneiPereira_springboot-crud-test&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ValneiPereira_springboot-crud-test)
+[![Build Workflow](https://github.com/ValneiPereira/springboot-crud-test/actions/workflows/build.yml/badge.svg)](https://github.com/ValneiPereira/springboot-crud-test/actions)
+![Build monitor](https://github.com/ValneiPereira/springboot-crud-test/actions/workflows/build.yml/badge.svg?event=pull_request)
+
 # Roteiro Microservice Spring Boot
 
 ## Objetivo
