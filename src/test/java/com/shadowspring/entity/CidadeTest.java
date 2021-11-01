@@ -26,7 +26,7 @@ public class CidadeTest {
 
     @Test
     public void getNomeCidade() {
-        String nomeCidade = "Tramandai";
+        String nomeCidade = "Tramandaí";
         cidade.setNomeCidade(nomeCidade);
         assertEquals(nomeCidade,cidade.getNomeCidade());
     }
@@ -40,8 +40,8 @@ public class CidadeTest {
 
     @Test
     public void testEquals_Symmetric() {
-        Cidade x = new Cidade(4L,"Tramandai","RS");
-        Cidade y = new Cidade(4L,"Tramandai","RS");
+        Cidade x = new Cidade(4L,"Tramandaí","RS");
+        Cidade y = new Cidade(4L,"Tramandaí","RS");
         assertTrue(x.equals(y) && y.equals(x));
         assertEquals(x.hashCode(), y.hashCode());
     }

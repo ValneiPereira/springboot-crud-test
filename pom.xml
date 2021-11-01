@@ -17,6 +17,8 @@
 
     <properties>
         <java.version>11</java.version>
+        <sonar.organization>valneipereira</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -95,7 +97,7 @@
     </repositories>
 
     <!-- PROFILES -->
-    <profiles>
+    <!--<profiles>
         <profile>
             <id>sonar</id>
             <activation>
@@ -105,7 +107,7 @@
                 <sonar.host.url>http://localhost:9000</sonar.host.url>
             </properties>
         </profile>
-    </profiles>
+    </profiles>-->
     <!-- PLUGIN -->
     <build>
         <plugins>
@@ -113,12 +115,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.7.0.1746</version>
-            </plugin>
-            <plugin>
+            </plugin>-->
+            <!--<plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.5</version>
@@ -137,7 +139,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>
