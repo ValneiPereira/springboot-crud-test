@@ -83,7 +83,6 @@ public class ClienteServiceImpl implements ClienteServices {
 	public Cliente fromDTO(ClienteNovoDTO dto) {
 		Cidade cidade = cidadeService.findById(dto.getCidadeId());
 		return new  Cliente (null, dto.getNome(), dto.getSexo(), dto.getDataNascimento(),dto.getVrRentabilidade(), dto.getIdade(),cidade);
-		
 	}
 
 }
