@@ -19,7 +19,18 @@
         <java.version>11</java.version>
         <sonar.organization>valneipereira</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.coverage.exclusions>**/exceptions/**, **/dto/**, **/controllers/**, **/entity/**</sonar.coverage.exclusions>
+        <sonar.coverage.exclusions>
+            **/config/**,
+            **/controllers/**,
+            **/dto/**,
+            **/entity/**,
+            **/enums/**,
+            **/estatics/**,
+            **/exceptions/**,
+            **/repository/**,
+            **/util/**,
+            **/ShadowApiApplication.java
+        </sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
@@ -102,11 +113,24 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.5</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/config/**</exclude>
+                        <exclude>**/controllers/**</exclude>
+                        <exclude>**/dto/**</exclude>
+                        <exclude>**/entity/**</exclude>
+                        <exclude>**/enums/**</exclude>
+                        <exclude>**/estatics/**</exclude>
+                        <exclude>**/exceptions/**</exclude>
+                        <exclude>**/repository/**</exclude>
+                        <exclude>**/util/**</exclude>
+                        <exclude>**/ShadowApiApplication.class</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
