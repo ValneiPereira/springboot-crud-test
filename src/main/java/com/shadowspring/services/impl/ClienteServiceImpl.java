@@ -30,8 +30,11 @@ public class ClienteServiceImpl implements ClienteServices {
 
 	@Override
 	public Cliente findById(Long id) {
-		Optional<Cliente> clientes = repository.findById(id);
-		return clientes.orElse(null);
+		return repository.findById(id).orElseThrow(()-> new EntidadeNaoEncontradaException("Cliente não encontrado"));
+	}
+
+	public Cliente buscarCliente(Long id){
+		return repository.findById(id).orElseThrow(()-> new EntidadeNaoEncontradaException(String.format("Cliente não encontrado com este código %d", id)));
 	}
 
 	@Override
@@ -44,6 +47,7 @@ public class ClienteServiceImpl implements ClienteServices {
 		Cliente carregaCliente =findById(cliente.getId());
 		updateData(carregaCliente,cliente );
 		return repository.save(carregaCliente);
+
 	}
 
 	@Override

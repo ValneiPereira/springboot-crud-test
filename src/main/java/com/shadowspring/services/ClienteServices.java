@@ -20,4 +20,5 @@ public interface ClienteServices {
 	Cliente fromDTO(ClienteNovoDTO dto);
 	List<Cliente> findByNomeCliente(String cliente);
 	List<Cliente> listAll();
+	Cliente buscarCliente(Long id);
 }

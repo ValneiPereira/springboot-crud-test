@@ -7,7 +7,9 @@ import java.util.List;
 import com.shadowspring.dto.ExcelDTO;
 import com.shadowspring.exceptions.EntidadeNaoEncontradaException;
 import com.shadowspring.util.ExcelExporter;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,9 +32,8 @@ public class ClienteController {
 
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Cliente> findById(@PathVariable Long id) {
-        Cliente cliente = services.findById(id);
-        return ResponseEntity.ok().body(cliente);
+    public Cliente findById(@PathVariable Long id) {
+        return services.buscarCliente(id);
     }
 
     @GetMapping()
@@ -57,26 +58,21 @@ public class ClienteController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Cliente> update(@RequestBody ClienteDTO dto, @PathVariable Long id) {
+    public Cliente update(@RequestBody ClienteDTO dto, @PathVariable Long id) {
         Cliente cliente = services.fromDTO(dto);
-        cliente.setId(id);
-        cliente = services.update(cliente);
-        return ResponseEntity.noContent().build();
+        Cliente clienteAtual = services.buscarCliente(id);
+
+        BeanUtils.copyProperties(cliente, clienteAtual,"id");
+
+        return services.save(clienteAtual);
 
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        try{
             services.delete(id);
-        }catch (EntidadeNaoEncontradaException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
     }
-
-
-
 
     @GetMapping(value = "/nome-cliente/{cliente}")
     public ResponseEntity<?> findByCliente(@PathVariable String cliente) {

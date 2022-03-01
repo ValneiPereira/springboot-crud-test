@@ -19,7 +19,8 @@ public class ClienteDTO implements Serializable {
 	private Long id;
 	private String nome;
 	private Sexo sexo;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT-3")
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT-3")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
 	private Integer idade;
 	private BigDecimal vrRentabilidade;
