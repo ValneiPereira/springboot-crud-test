@@ -1,22 +1,22 @@
 package com.shadowspring.services.impl;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.shadowspring.dto.ClienteDTO;
+import com.shadowspring.dto.ClienteNovoDTO;
+import com.shadowspring.entity.Cidade;
+import com.shadowspring.entity.Cliente;
+import com.shadowspring.exceptions.EntidadeNaoEncontradaException;
+import com.shadowspring.repository.ClienteRepository;
+import com.shadowspring.services.ClienteServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.shadowspring.entity.Cidade;
-import com.shadowspring.entity.Cliente;
-import com.shadowspring.repository.ClienteRepository;
-import com.shadowspring.dto.ClienteDTO;
-import com.shadowspring.dto.ClienteNovoDTO;
-import com.shadowspring.services.ClienteServices;
-
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,13 +30,13 @@ public class ClienteServiceImpl implements ClienteServices {
 
 	@Override
 	public Cliente findById(Long id) {
-		Optional<Cliente> Clientes = repository.findById(id);
-		return Clientes.orElse(null);
+		Optional<Cliente> clientes = repository.findById(id);
+		return clientes.orElse(null);
 	}
 
 	@Override
-	public Cliente save(Cliente Cliente) {
-		return repository.save(Cliente);
+	public Cliente save(Cliente cliente) {
+		return repository.save(cliente);
 	}
 
 	@Override
@@ -48,9 +48,11 @@ public class ClienteServiceImpl implements ClienteServices {
 
 	@Override
 	public void delete(Long id) {
-		findById(id);
-		repository.deleteById(id);
-
+		try {
+			repository.deleteById(id);
+		}catch (EmptyResultDataAccessException e){
+			throw new EntidadeNaoEncontradaException(String.format("Não existe cadastro com este código %d", id));
+		}
 	}
 	
 	@Override
