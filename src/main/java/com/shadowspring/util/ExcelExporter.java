@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ExcelExporter {
     public static final DecimalFormat MASCARA_PORCENTO = Formatacao.MASCARA_PORCENTO;
@@ -72,23 +73,23 @@ public class ExcelExporter {
     }
 
     private void writeDataLines() {
-        int rowCount = 1;
+        AtomicInteger rowCount = new AtomicInteger(1);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setFontHeight(10);
         font.setFontName("Arial");
         style.setFont(font);
 
-        for (Cliente cliente : listUsers) {
-            Row row = sheet.createRow(rowCount++);
-            int columnCount = 0;
-            createCell(row, columnCount++, cliente.getId(), style);
-            createCell(row, columnCount++, cliente.getNome(),style);
-            createCell(row, columnCount++, cliente.getSexo(), style);
-            createCell(row, columnCount++, cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), style);
-            createCell(row, columnCount++, MASCARA_PORCENTO.format(cliente.getVrRentabilidade().setScale(2, RoundingMode.HALF_UP)).replace(".", ","), style);
-            createCell(row, columnCount, cliente.getIdade(), style);
-        }
+        listUsers.forEach(cliente -> {
+            Row row = sheet.createRow(rowCount.getAndIncrement());
+            AtomicInteger columnCount = new AtomicInteger();
+            createCell(row, columnCount.getAndIncrement(), cliente.getId(), style);
+            createCell(row, columnCount.getAndIncrement(), cliente.getNome(),style);
+            createCell(row, columnCount.getAndIncrement(), cliente.getSexo(), style);
+            createCell(row, columnCount.getAndIncrement(), cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), style);
+            createCell(row, columnCount.getAndIncrement(), MASCARA_PORCENTO.format(cliente.getVrRentabilidade().setScale(2, RoundingMode.HALF_UP)).replace(".", ","), style);
+            createCell(row, columnCount.getAndIncrement(), cliente.getIdade(), style);
+        });
     }
 
     public String export() throws IOException {
