@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class CidadeRepositoryTest {
+class CidadeRepositoryTest {
 
     private Cidade cidade;
 
@@ -36,30 +36,29 @@ public class CidadeRepositoryTest {
     }
 
     @Test
-    public void testSave() {
+    void testSave() {
         cidade = cidadeRepository.save(cidade);
         assertNotNull(cidade.getId());
     }
 
     @Test
-    public void testDeleteCidade() {
+    void testDeleteCidade() {
         cidade = cidadeRepository.save(cidade);
         cidadeRepository.delete(cidade);
         assertFalse(cidadeRepository.findById(cidade.getId()).isPresent());
     }
 
     @Test
-    public void testFindCidadeById() {
+    void testFindCidadeById() {
         cidade = cidadeRepository.save(cidade);
         Optional<Cidade> response = cidadeRepository.findById(cidade.getId());
         assertTrue(response.isPresent());
     }
 
     @Test
-    public void testFindAllCidades() {
+    void testFindAllCidades() {
         cidade = cidadeRepository.save(cidade);
         Pageable pageable = PageRequest.of(0, 1);
         assertEquals(1, cidadeRepository.findAll(pageable).getContent().size());
     }
-
 }
