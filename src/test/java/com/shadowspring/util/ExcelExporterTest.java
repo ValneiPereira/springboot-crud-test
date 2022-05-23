@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class ExcelExporterTest {
+class ExcelExporterTest {
 
     private List<Cliente> listClientes;
 
@@ -50,7 +50,7 @@ public class ExcelExporterTest {
     }
 
     @Test
-    public void export() throws IOException {
+    void export() throws IOException {
         excelExporter = new ExcelExporter(listClientes);
         excelExporter.export();
         assertNotNull(excelExporter);

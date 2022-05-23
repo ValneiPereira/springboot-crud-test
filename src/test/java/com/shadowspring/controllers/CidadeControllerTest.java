@@ -48,7 +48,7 @@ public class CidadeControllerTest {
 	MockMvc mvc;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		cidade = umaCidade().agora();
 
 		cidadeDTO = new CidadeDTO();
@@ -58,7 +58,7 @@ public class CidadeControllerTest {
 	}
 
 	@Test
-	public void testSalvarCidadeValida() throws Exception {
+	void testSalvarCidadeValida() throws Exception {
 
 		when(cidadeService.fromDTO(cidadeDTO)).thenReturn(cidade);
 		when(cidadeService.save(any())).thenReturn(cidade);
@@ -70,7 +70,7 @@ public class CidadeControllerTest {
 	}
 	
 	@Test
-	public void testSaveCidadeNomeNull() throws Exception {
+	void testSaveCidadeNomeNull() throws Exception {
 		cidadeDTO.setNomeCidade(null);
 		
 		mvc.perform(MockMvcRequestBuilders.post(URL)
@@ -81,7 +81,7 @@ public class CidadeControllerTest {
 	}
 	
 	@Test
-	public void testSaveCidadeMesmoNome() throws Exception {
+	void testSaveCidadeMesmoNome() throws Exception {
 		cidadeDTO = new CidadeDTO();
 		cidadeDTO.setId(2L);
 		cidadeDTO.setNomeCidade("Tramandaí");

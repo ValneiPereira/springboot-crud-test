@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class ClienteRepositoryTest {
+class ClienteRepositoryTest {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
@@ -29,11 +29,7 @@ public class ClienteRepositoryTest {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 
-	private final String NOME_CIDADE = "Cachoeirinha";
-	private final String NOME_ESTADO = "RS";
-	private final String NOME_CLIENTE = "Valnei";
 	private final Sexo SEXO = Sexo.M;
-	private final int IDADE = 40;
 	private final LocalDate DATA_NASCIMENTO = LocalDate.of(1980, Month.APRIL, 3);
 	
 
@@ -42,12 +38,16 @@ public class ClienteRepositoryTest {
 	@BeforeEach
 	public void setUp() {
 
+		String NOME_CIDADE = "Cachoeirinha";
+		String NOME_ESTADO = "RS";
 		Cidade cidade = Cidade.builder()
 				.nomeCidade(NOME_CIDADE)
 				.estado(NOME_ESTADO)
 				.build();
 		cidadeRepository.save(cidade);
 
+		String NOME_CLIENTE = "Valnei";
+		int IDADE = 40;
 		cliente = Cliente.builder()
 				.nome(NOME_CLIENTE)
 				.sexo(SEXO)
@@ -58,19 +58,19 @@ public class ClienteRepositoryTest {
 	}
 	
 	@AfterEach
-	public void tearDown() {
+	void tearDown() {
 		clienteRepository.deleteAll();
 		cidadeRepository.deleteAll();
 	}
 
 	@Test
-	public void testSaveCliente() {
+	void testSaveCliente() {
 		cliente = clienteRepository.save(cliente);
 		assertNotNull(cliente.getId());
 	}
 
 	@Test
-	public void testFindClienteById() {
+	void testFindClienteById() {
 		cliente.setId(null);
 		cliente = clienteRepository.save(cliente);
 		Optional<Cliente> response = clienteRepository.findById(cliente.getId());
@@ -78,10 +78,9 @@ public class ClienteRepositoryTest {
 	}
 
 	@Test
-	public void testFindAllClientes() {
+	void testFindAllClientes() {
 		cliente = clienteRepository.save(cliente);
 		Pageable pageable = PageRequest.of(0, 1);
 		assertEquals(1, cidadeRepository.findAll(pageable).getContent().size());
 	}
-
 }

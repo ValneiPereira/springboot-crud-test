@@ -8,9 +8,9 @@ public class FieldMessage implements Serializable {
 	private String campoNome;
 	private String erro;
 
-	public FieldMessage(String CampoNome, String erro) {
+	public FieldMessage(String campoNome, String erro) {
 		
-		this.campoNome = CampoNome;
+		this.campoNome = campoNome;
 		this.erro = erro;
 	}
 

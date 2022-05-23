@@ -5,17 +5,14 @@ import java.net.URI;
 import java.util.List;
 
 import com.shadowspring.dto.ExcelDTO;
-import com.shadowspring.exceptions.EntidadeNaoEncontradaException;
 import com.shadowspring.util.ExcelExporter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.shadowspring.entity.Cliente;
