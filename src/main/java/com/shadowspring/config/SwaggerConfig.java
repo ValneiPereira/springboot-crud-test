@@ -1,6 +1,5 @@
 package com.shadowspring.config;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +17,7 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI springShopOpenAPI() {
-        return new OpenAPI().info(new Info().title("shadowspring").description("APi para gerenciamento de clientes").version(appVersion));
+        return new OpenAPI().info(new Info().title("shadowspring").description("Api para gerenciamento de clientes").version(appVersion));
     }
 
 	/*@Bean
