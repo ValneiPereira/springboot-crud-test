@@ -1,24 +1,15 @@
 package com.shadowspring.config;
 
-import org.springframework.context.annotation.Bean;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.context.annotation.Configuration;
 
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-/**
- http://localhost:8080/swagger-ui.html
- */
+/*http://localhost:8080/swagger-ui.html*/
+
 @Configuration
-@EnableSwagger2
+@OpenAPIDefinition
 public class SwaggerConfig {
 
-	@Bean
+	/*@Bean
 	public Docket docket() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.useDefaultResponseMessages(false)
@@ -28,9 +19,9 @@ public class SwaggerConfig {
 				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(apiInfo());
-	}
+	}*/
 	
-	private ApiInfo apiInfo() {
+	/*private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Cadastro Cliente")
 				.description("Api para cadastrar um cliente")
@@ -38,10 +29,10 @@ public class SwaggerConfig {
 				.contact(contact())
 				.build();
 	}
-	
-	private Contact contact() {
-		return new Contact("Valnei Pereira", 
-							"http://github.com/ValneiPereira", 
+	*/
+	/*private Contact contact() {
+		return new Contact("Valnei Pereira",
+							"http://github.com/ValneiPereira",
 							"valneipereirabarboza@gmail.com");
-	}
+	}*/
 }

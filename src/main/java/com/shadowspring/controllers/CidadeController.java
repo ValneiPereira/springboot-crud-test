@@ -22,7 +22,7 @@ import com.shadowspring.entity.Cidade;
 import com.shadowspring.dto.CidadeDTO;
 import com.shadowspring.services.CidadeServices;
 
-import io.swagger.annotations.ApiOperation;
+
 
 @RestController
 @RequestMapping("/cidades")
@@ -31,14 +31,14 @@ public class CidadeController {
 	@Autowired
 	private CidadeServices services;
 	
-	@ApiOperation(value="Buscar por código")
+	//@ApiOperation(value="Buscar por código")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Cidade> findById(@PathVariable Long id) {
 		Cidade cidade = services.findById(id);
 		return ResponseEntity.ok().body(cidade);
 	}
 	
-	@ApiOperation(value="Listar uma pagina")
+	//@ApiOperation(value="Listar uma pagina")
 	@GetMapping()
 	public ResponseEntity<?> findPage(Pageable pageable) {
 		Page<Cidade> cidades = services.findPage(pageable);
@@ -46,7 +46,7 @@ public class CidadeController {
 		return ResponseEntity.ok().body(cidadesDtoPage);
 	}
 	
-	@ApiOperation(value="Cadastrar nova cidade")
+	//@ApiOperation(value="Cadastrar nova cidade")
 	@PostMapping
 	public ResponseEntity<Cidade> insert(@Valid @RequestBody CidadeDTO dto) {
 		Cidade cidade= services.fromDTO(dto);
@@ -57,14 +57,14 @@ public class CidadeController {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@ApiOperation(value="Buscar por nome da cidade")
+	//@ApiOperation(value="Buscar por nome da cidade")
 	@GetMapping(value = "/nome-cidade/{cidade}")
 	public ResponseEntity<?> findByCidade(@PathVariable String cidade) {
 		List<Cidade> cidades = services.findByNomeCidade(cidade);
 		return ResponseEntity.ok().body(cidades);
 	}
 	
-	@ApiOperation(value="Buscar estado")
+	//@ApiOperation(value="Buscar estado")
 	@GetMapping(value = "/estados/{estado}")
 	public ResponseEntity<?> findByEstado(@PathVariable String estado)  {
 		List<Cidade> cidades = services.findByEstado(estado);
