@@ -1,0 +1,27 @@
+[*]
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+
+[*.{js,java,properties,xml,css,less,json,html,yml}]
+charset = utf-8
+
+[*.{java,xml}]
+indent_size = 4
+ij_java_names_count_to_use_import_on_demand = 99
+ij_java_class_count_to_use_import_on_demand = 99
+ij_java_layout_static_imports_separately = true
+
+ij_java_blank_lines_before_imports = 1
+ij_java_blank_lines_after_imports = 1
+
+ij_java_blank_lines_before_package = 0
+ij_java_blank_lines_after_package = 1
+
+ij_java_blank_lines_after_class_header = 0
+ij_java_blank_lines_before_method_body = 0
+
+[*.{yml,js,json,css,less,html}]
+indent_size = 2
+
+

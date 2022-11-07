@@ -27,82 +27,80 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class CidadeControllerTest {
 
+    private static final String NOME_CIDADE = "Tramandaí";
+    private static final String ESTADO = "RS";
+    private static final String URL = "/cidades";
 
-	private  final String NOME_CIDADE = "Tramandaí";
-	private  final String ESTADO = "RS";
-	private  final String URL = "/cidades";
+    private Cidade cidade;
 
-	private Cidade cidade;
-	
-	private CidadeDTO cidadeDTO;
+    private CidadeDTO cidadeDTO;
 
-	private CidadeController controller;
+    private CidadeController controller;
 
-	@MockBean
-	private CidadeServices cidadeService;
-	
-	@MockBean
-	private ClienteServices clienteService;
+    @MockBean
+    private CidadeServices cidadeService;
 
-	@Autowired
-	MockMvc mvc;
+    @MockBean
+    private ClienteServices clienteService;
 
-	@BeforeEach
-	void setUp() {
-		cidade = umaCidade().agora();
+    @Autowired
+    MockMvc mvc;
 
-		cidadeDTO = new CidadeDTO();
-		cidadeDTO.setNomeCidade(NOME_CIDADE);
-		cidadeDTO.setEstado(ESTADO);
- 
-	}
+    @BeforeEach
+    void setUp() {
+        cidade = umaCidade().agora();
+        cidadeDTO = new CidadeDTO();
+        cidadeDTO.setNomeCidade(NOME_CIDADE);
+        cidadeDTO.setEstado(ESTADO);
 
-	@Test
-	void testSalvarCidadeValida() throws Exception {
+    }
 
-		when(cidadeService.fromDTO(cidadeDTO)).thenReturn(cidade);
-		when(cidadeService.save(any())).thenReturn(cidade);
-		mvc.perform(MockMvcRequestBuilders.post(URL)
-				.content(asJsonString(cidadeDTO))
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isCreated());
-	}
-	
-	@Test
-	void testSaveCidadeNomeNull() throws Exception {
-		cidadeDTO.setNomeCidade(null);
-		
-		mvc.perform(MockMvcRequestBuilders.post(URL)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(asJsonString(cidadeDTO)))
-				.andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$").isNotEmpty());
-	}
-	
-	@Test
-	void testSaveCidadeMesmoNome() throws Exception {
-		cidadeDTO = new CidadeDTO();
-		cidadeDTO.setId(2L);
-		cidadeDTO.setNomeCidade("Tramandaí");
-		cidadeDTO.setEstado(ESTADO);
-		
-		  when(cidadeService.fromDTO(cidadeDTO)).thenReturn(cidade);
-		  when(cidadeService.save(any())).thenThrow(BadRequestException.class);
-		
-		mvc.perform(MockMvcRequestBuilders.post(URL)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(asJsonString(cidadeDTO)))
-				.andExpect(status().isBadRequest());
-	}
+    @Test
+    void testSalvarCidadeValida() throws Exception {
 
-	public static String asJsonString(final Object obj) {
-		try {
-			final ObjectMapper mapper = new ObjectMapper();
-			mapper.registerModule(new JavaTimeModule());
-			return mapper.writeValueAsString(obj);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+        when(cidadeService.fromDTO(cidadeDTO)).thenReturn(cidade);
+        when(cidadeService.save(any())).thenReturn(cidade);
+        mvc.perform(MockMvcRequestBuilders.post(URL)
+                        .content(asJsonString(cidadeDTO))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void testSaveCidadeNomeNull() throws Exception {
+        cidadeDTO.setNomeCidade(null);
+
+        mvc.perform(MockMvcRequestBuilders.post(URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(cidadeDTO)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").isNotEmpty());
+    }
+
+    @Test
+    void testSaveCidadeMesmoNome() throws Exception {
+        cidadeDTO = new CidadeDTO();
+        cidadeDTO.setId(2L);
+        cidadeDTO.setNomeCidade("Tramandai");
+        cidadeDTO.setEstado(ESTADO);
+
+        when(cidadeService.fromDTO(cidadeDTO)).thenReturn(cidade);
+        when(cidadeService.save(any())).thenThrow(BadRequestException.class);
+
+        mvc.perform(MockMvcRequestBuilders.post(URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(cidadeDTO)))
+                .andExpect(status().isBadRequest());
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            return mapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -11,10 +11,9 @@
     </parent>
     <groupId>com.shadowspring</groupId>
     <artifactId>shadow-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>shadow-api</name>
     <description>API cadastrar cliente</description>
-
     <properties>
         <java.version>11</java.version>
         <sonar.organization>valneipereira</sonar.organization>
@@ -74,6 +73,7 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.2.32</version>
         </dependency>
+        <!--Lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -104,6 +104,15 @@
         </repository>
     </repositories>
     <build>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>application.properties</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

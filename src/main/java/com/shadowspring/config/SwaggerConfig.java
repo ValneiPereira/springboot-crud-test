@@ -12,12 +12,19 @@ import org.springframework.context.annotation.Configuration;
 //@OpenAPIDefinition
 public class SwaggerConfig {
 
-    @Value("${info.app.version:0.0.1}")
+    @Value("${app.version}")
     private String appVersion;
+
+    @Value("${application.name}")
+    private String applicationName;
 
     @Bean
     public OpenAPI springShopOpenAPI() {
-        return new OpenAPI().info(new Info().title("shadowspring").description("Api para gerenciamento de clientes").version(appVersion));
+        return new OpenAPI()
+            .info(new Info()
+                .title(applicationName)
+                .description("Api para gerenciamento de clientes")
+                .version(appVersion));
     }
 
 	/*@Bean
